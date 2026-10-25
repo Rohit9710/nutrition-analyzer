@@ -1,0 +1,235 @@
+{
+ "poha": {
+  "label": "Poha",
+  "serving": "1 plate (~180 g)",
+  "serving_g": 180,
+  "ingredients": {
+   "poha": 60,
+   "onion": 30,
+   "potato": 30,
+   "green_peas": 20,
+   "oil": 8,
+   "peanuts": 10,
+   "curry_leaves": 1,
+   "green_chilli": 3,
+   "spice_mix": 2,
+   "salt": 1.5
+  }
+ },
+ "idli": {
+  "label": "Idli",
+  "serving": "3 idlis (~120 g)",
+  "serving_g": 120,
+  "ingredients": {
+   "rice_raw": 40,
+   "urad_dal": 12,
+   "salt": 0.8
+  }
+ },
+ "dosa": {
+  "label": "Dosa (plain)",
+  "serving": "1 medium dosa (~100 g)",
+  "serving_g": 100,
+  "ingredients": {
+   "rice_raw": 45,
+   "urad_dal": 12,
+   "oil": 5,
+   "salt": 0.8
+  }
+ },
+ "samosa": {
+  "label": "Samosa",
+  "serving": "1 piece (~70 g)",
+  "serving_g": 70,
+  "ingredients": {
+   "maida": 25,
+   "potato": 35,
+   "green_peas": 8,
+   "oil": 12,
+   "spice_mix": 1,
+   "salt": 0.5
+  }
+ },
+ "biryani": {
+  "label": "Chicken Biryani",
+  "serving": "1 plate (~300 g)",
+  "serving_g": 300,
+  "ingredients": {
+   "rice_raw": 80,
+   "chicken": 100,
+   "onion": 50,
+   "curd": 30,
+   "oil": 15,
+   "ghee": 5,
+   "spice_mix": 4,
+   "salt": 2
+  }
+ },
+ "rajma_chawal": {
+  "label": "Rajma Chawal",
+  "serving": "1 plate (~300 g)",
+  "serving_g": 300,
+  "ingredients": {
+   "rajma": 40,
+   "rice_raw": 75,
+   "onion": 40,
+   "tomato": 50,
+   "oil": 10,
+   "spice_mix": 3,
+   "salt": 2
+  }
+ },
+ "aloo_paratha": {
+  "label": "Aloo Paratha",
+  "serving": "1 paratha (~120 g)",
+  "serving_g": 120,
+  "ingredients": {
+   "wheat_flour": 60,
+   "potato": 50,
+   "oil": 8,
+   "salt": 1
+  }
+ },
+ "dal_tadka": {
+  "label": "Dal Tadka",
+  "serving": "1 bowl (~200 g)",
+  "serving_g": 200,
+  "ingredients": {
+   "toor_dal": 40,
+   "onion": 20,
+   "tomato": 30,
+   "oil": 8,
+   "ghee": 3,
+   "spice_mix": 2,
+   "salt": 2
+  }
+ },
+ "chapati": {
+  "label": "Chapati",
+  "serving": "2 chapatis (~80 g)",
+  "serving_g": 80,
+  "ingredients": {
+   "wheat_flour": 60,
+   "oil": 3,
+   "salt": 0.5
+  }
+ },
+ "naan": {
+  "label": "Naan",
+  "serving": "1 naan (~90 g)",
+  "serving_g": 90,
+  "ingredients": {
+   "maida": 70,
+   "curd": 10,
+   "milk": 10,
+   "sugar": 2,
+   "oil": 5,
+   "salt": 1
+  }
+ },
+ "paneer_butter_masala": {
+  "label": "Paneer Butter Masala",
+  "serving": "1 bowl (~200 g)",
+  "serving_g": 200,
+  "ingredients": {
+   "paneer": 80,
+   "tomato": 100,
+   "butter": 15,
+   "onion": 30,
+   "cashew": 10,
+   "spice_mix": 3,
+   "salt": 2
+  }
+ },
+ "palak_paneer": {
+  "label": "Palak Paneer",
+  "serving": "1 bowl (~200 g)",
+  "serving_g": 200,
+  "ingredients": {
+   "spinach": 150,
+   "paneer": 60,
+   "onion": 30,
+   "tomato": 30,
+   "oil": 10,
+   "spice_mix": 3,
+   "salt": 2
+  }
+ },
+ "chana_masala": {
+  "label": "Chana Masala",
+  "serving": "1 bowl (~200 g)",
+  "serving_g": 200,
+  "ingredients": {
+   "chickpeas": 50,
+   "onion": 40,
+   "tomato": 50,
+   "oil": 10,
+   "spice_mix": 3,
+   "salt": 2
+  }
+ },
+ "dal_makhani": {
+  "label": "Dal Makhani",
+  "serving": "1 bowl (~200 g)",
+  "serving_g": 200,
+  "ingredients": {
+   "urad_dal": 30,
+   "rajma": 10,
+   "butter": 10,
+   "milk": 50,
+   "tomato": 40,
+   "onion": 20,
+   "spice_mix": 2,
+   "salt": 2
+  }
+ },
+ "aloo_tikki": {
+  "label": "Aloo Tikki",
+  "serving": "2 pieces (~100 g)",
+  "serving_g": 100,
+  "ingredients": {
+   "potato": 100,
+   "besan": 10,
+   "oil": 12,
+   "spice_mix": 2,
+   "salt": 1
+  }
+ },
+ "butter_chicken": {
+  "label": "Butter Chicken",
+  "serving": "1 bowl (~250 g)",
+  "serving_g": 250,
+  "ingredients": {
+   "chicken": 120,
+   "butter": 15,
+   "tomato": 100,
+   "curd": 30,
+   "cashew": 10,
+   "onion": 30,
+   "spice_mix": 3,
+   "salt": 2
+  }
+ },
+ "gulab_jamun": {
+  "label": "Gulab Jamun",
+  "serving": "2 pieces (~80 g)",
+  "serving_g": 80,
+  "ingredients": {
+   "milk_powder": 25,
+   "maida": 5,
+   "oil": 15,
+   "sugar": 40
+  }
+ },
+ "jalebi": {
+  "label": "Jalebi",
+  "serving": "3 pieces (~60 g)",
+  "serving_g": 60,
+  "ingredients": {
+   "maida": 35,
+   "curd": 5,
+   "oil": 15,
+   "sugar": 35
+  }
+ }
+}
