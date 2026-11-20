@@ -24,6 +24,10 @@ Dockerfile, render.yaml   one-container deployment
 
 > **Never used GitHub, Colab or Render?** Follow `DEPLOY_GUIDE.md`: it puts the project online with nothing installed on your laptop. Training notebook: `ml/train_on_colab.ipynb` (merges several data sources, trains on a free GPU).
 
+## The interface
+
+Mobile-first React app with three tabs: **Analyze** (dish photo, packaged food, recipe), **Today** (a daily food log with progress against your plan) and **My goal**. Portion size and meal can be changed after a result appears and the numbers update live. Big phone photos are shrunk in the browser before upload. UI smoke tests: `cd frontend && npm test`.
+
 ## 1. Run it locally
 
 You need Python 3.10+ and Node 18+. Tesseract is optional (only for label photos): Windows installer from UB-Mannheim, `sudo apt install tesseract-ocr` on Ubuntu, `brew install tesseract` on macOS.

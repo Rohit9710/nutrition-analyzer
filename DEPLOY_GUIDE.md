@@ -54,7 +54,7 @@ Do step 3 *before* training, so you know the website works, and you will not be 
    - **Source B (Kaggle):** run it; if asked, log in to Kaggle (instructions are in the cell).
    - **Source D (your own photos):** strongly recommended. Take or collect photos of idli, dosa, rajma chawal, aloo paratha, and others, in folders named exactly as the dish names, zip the folder and upload it when asked.
    - **Sources C and E:** optional.
-4. Run **Prepare the data**. It prints a table: how many images each dish got. Dishes with fewer than 60 images are dropped (the app will then not recognise them). More photos of those dishes (Source D) fix this.
+4. Run **Prepare the data**. It prints a table: how many images each dish got. Dishes with fewer than 40 images are dropped (the app will then not recognise them). More photos of those dishes (Source D) fix this.
 5. Run the preview cell and scroll the sample pictures. If a dish shows wrong pictures, remove that data source and prepare again.
 6. Run **Train**. It takes about 20 to 60 minutes. Keep the browser tab open.
 7. Run the **Results** cell. You will see the accuracy, the training graph and the confusion matrix. **Save these: they are your real results for the PPT.**
@@ -85,7 +85,7 @@ Do step 3 *before* training, so you know the website works, and you will not be 
 | Render says "Out of memory" | Free plan has 512 MB. Redeploy once. If it repeats, use a Hugging Face Space (Docker, free, more memory). |
 | Website opens but pictures are not recognised | Open `/api/health`. If `model_loaded` is `false`, the two model files are not in `backend/model`, or the folder name is wrong. |
 | Label photo gives no values | Use a flat, bright, sharp photo of just the nutrition table, or type the numbers by hand. |
-| A dish you wanted is missing after "Prepare data" | It had under 60 images. Add more photos for it (Source D) and run Prepare data again. |
+| A dish you wanted is missing after "Prepare data" | It had under 40 images. Add more photos for it (Source D) and run Prepare data again. |
 | Colab disconnected | Reconnect and run the cells again from the top. Data sources need to be downloaded again. |
 | Kaggle cell asks for login | Kaggle > profile picture > Settings > *Create New Token*; upload the `kaggle.json` that downloads. |
 
