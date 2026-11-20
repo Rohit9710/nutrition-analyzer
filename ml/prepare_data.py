@@ -11,6 +11,7 @@ import hashlib
 import json
 import random
 import shutil
+import sys
 from collections import defaultdict
 from pathlib import Path
 
@@ -118,6 +119,10 @@ def main():
     for c, v in summary["classes"].items():
         print(f"{c:<18}{v['total']:>7}{v['train']:>7}{v['val']:>6}{v['test']:>6}")
     print(f"{'TOTAL':<18}{tot['total']:>7}{tot['train']:>7}{tot['val']:>6}{tot['test']:>6}   classes kept: {len(summary['classes'])}")
+    if len(summary["classes"]) < 2:
+        print("\nSTOP: fewer than 2 dishes have enough images, so a classifier cannot be trained yet. "
+              "Add more images (own photos or the web top-up cell) and run this step again.")
+        sys.exit(1)
 
 
 if __name__ == "__main__":

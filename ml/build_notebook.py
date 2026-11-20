@@ -18,7 +18,7 @@ md("""
 3. Run **Prepare data**, check the table it prints, then **Train** (about 20 to 60 minutes).
 4. The last cell downloads `model_package.zip`. Put `dish_model.tflite` and `labels.json` into your project's `backend/model` folder.
 
-Every class needs roughly **150 or more good images**. Classes with fewer than 60 are dropped automatically (with a warning).
+Every class needs roughly **150 or more good images**. Classes with fewer than 40 are dropped automatically (with a warning). Large classes are capped at 200 images so one dish does not dominate.
 """)
 md("## 1. Setup")
 code("!pip -q install icrawler kagglehub scikit-learn matplotlib pillow\nimport tensorflow as tf\nprint('TensorFlow', tf.__version__, '| GPU:', tf.config.list_physical_devices('GPU'))")
@@ -85,16 +85,45 @@ for name in up:
 !ls /content/src/own_photos | head -30
 """)
 md("""
-## Data source E (optional): web image search top-up
-Fills dishes that still have too few images. **Read this first:** web images can be copyrighted, wrongly labelled or duplicates. Use them for study only, do not redistribute them, and always **check the preview grid** below before training. Set the numbers for the dishes you need, or leave `TOPUP` empty to skip.
+## Count what you have, then top up the missing images from the web (Source E)
+The public datasets are small (Kaggle has only about 45 images per dish) and some dishes (idli, dosa, rajma chawal, aloo paratha) are in none of them. This cell **counts the images per dish and downloads web images for the dishes below `TARGET`**.
+
+**Read this first:** web images can be copyrighted, wrongly labelled or duplicates. Use them for study only and do not redistribute them. The next sections remove duplicates and show a preview so you can check the labels. Set `USE_WEB = False` if you do not want this. Photos you take yourself (Source D) are always better.
 """)
 code("""
-TOPUP = {}   # example: {'idli': 150, 'dosa': 150, 'rajma_chawal': 150, 'aloo_paratha': 150}
-from icrawler.builtin import BingImageCrawler
-for cls, n in TOPUP.items():
-    BingImageCrawler(storage={'root_dir': f'/content/src/web/{cls}'}, log_level=40).crawl(
-        keyword=cls.replace('_', ' ') + ' indian food dish', max_num=n)
-    print(cls, 'downloaded')
+USE_WEB = True       # False = skip web download
+TARGET = 150         # images wanted per dish
+SRC = '/content/src'
+import os, collections
+norm = lambda s: s.strip().lower().replace('-', '_').replace(' ', '_')
+EXT = ('.jpg', '.jpeg', '.png', '.webp', '.bmp')
+try: ALIASES
+except NameError: ALIASES = {'idly': 'idli', 'dosai': 'dosa', 'masala_dosa': 'dosa', 'paratha': 'aloo_paratha', 'chole': 'chana_masala', 'roti': 'chapati'}
+def count_images():
+    have = collections.Counter()
+    for s in sorted(os.listdir(SRC)):
+        sp = os.path.join(SRC, s)
+        for cdir in os.listdir(sp):
+            cls = ALIASES.get(norm(cdir), norm(cdir))
+            if cls in CLASSES:
+                for r, _, fs in os.walk(os.path.join(sp, cdir)):
+                    have[cls] += sum(f.lower().endswith(EXT) for f in fs)
+    return have
+have = count_images()
+print(f"{'dish':<22}{'have':>6}  need")
+for c in CLASSES: print(f"{c:<22}{have[c]:>6}  {max(0, TARGET - have[c])}")
+KEYWORDS = {'rajma_chawal': 'rajma chawal plate', 'aloo_paratha': 'aloo paratha', 'dosa': 'masala dosa plate', 'idli': 'idli sambar plate',
+            'dal_tadka': 'dal tadka', 'chana_masala': 'chana masala chole', 'biryani': 'chicken biryani plate'}
+if USE_WEB:
+    from icrawler.builtin import BingImageCrawler
+    for c in CLASSES:
+        need = TARGET - have[c]
+        if need > 0:
+            kw = KEYWORDS.get(c, c.replace('_', ' ') + ' indian food')
+            BingImageCrawler(storage={'root_dir': f'{SRC}/web/{c}'}, log_level=40).crawl(keyword=kw, max_num=int(need * 1.4))
+            print('downloaded for', c)
+    have = count_images()
+    print('\\nAfter top-up:', dict(have))
 """)
 md("## 4. Prepare the data: merge all sources, remove broken and duplicate photos, split 70/15/15")
 code("""
@@ -108,7 +137,7 @@ ALIASES = {  # other names used by datasets -> our dish names (edit if you like)
 json.dump(ALIASES, open('aliases.json', 'w'))
 sources = [os.path.join('/content/src', d) for d in sorted(os.listdir('/content/src'))]
 print('Sources found:', sources)
-!python prepare_data.py --sources {' '.join(sources)} --classes {','.join(CLASSES)} --aliases aliases.json --out /content/data --min_per_class 60 --max_per_class 600
+!python prepare_data.py --sources {' '.join(sources)} --classes {','.join(CLASSES)} --aliases aliases.json --out /content/data --min_per_class 40 --max_per_class 200
 """)
 md("""
 ### Look at your data (important)

@@ -58,6 +58,8 @@ def main():
     d = Path(a.data)
     train, val, test = load(d / "train", a.img, a.batch, True), load(d / "val", a.img, a.batch, False), load(d / "test", a.img, a.batch, False)
     classes = train.class_names
+    if len(classes) < 2:
+        raise SystemExit("STOP: found fewer than 2 classes in the training folder. Run the Prepare data step again and make sure at least 2 dishes were kept.")
     dj = ROOT / "backend/app/data/dishes.json"
     if dj.exists():
         missing = [c for c in classes if c not in json.loads(dj.read_text())]

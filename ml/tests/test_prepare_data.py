@@ -41,3 +41,11 @@ def test_merge_dedupe_split(tmp_path):
     names = [f.name for sp in ("train", "val", "test") for f in (out / sp / "poha").iterdir()]
     assert len(names) == len(set(names)) == 60
     assert not (out / "train" / "pizza").exists()
+
+
+def test_stops_when_fewer_than_two_classes(tmp_path):
+    a = tmp_path / "src"
+    for i in range(80):
+        mk(a / "poha" / f"{i}.jpg", i)
+    r = subprocess.run([sys.executable, str(HERE / "prepare_data.py"), "--sources", str(a), "--classes", "poha,idli", "--out", str(tmp_path / "o"), "--min_per_class", "60"], capture_output=True, text=True)
+    assert r.returncode == 1 and "STOP" in r.stdout
