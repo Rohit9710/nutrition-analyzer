@@ -10,15 +10,19 @@ const ACTIVITY = [["sedentary", "Mostly sitting"], ["light", "Light exercise, 1 
 function BmiScale({ bmi, standard }) {
   const cuts = standard === "who" ? [18.5, 25, 30] : [18.5, 23, 25];
   const names = ["Underweight", "Normal", "Overweight", "Obese"];
+  const ranges = standard === "who" ? ["under 18.5", "18.5 to 24.9", "25 to 29.9", "30 and above"] : ["under 18.5", "18.5 to 22.9", "23 to 24.9", "25 and above"];
   const lo = 15, hi = 35, pos = (v) => Math.min(100, Math.max(0, ((v - lo) / (hi - lo)) * 100));
   const edges = [lo, ...cuts, hi];
   return (
     <div className="bmi">
-      <div className="bmi-bar">
-        {names.map((n, i) => <span key={n} style={{ width: pos(edges[i + 1]) - pos(edges[i]) + "%" }} className={"b" + i}>{n}</span>)}
+      <div className="bmi-bar" role="img" aria-label={`BMI ${bmi} on a scale from underweight to obese`}>
+        {names.map((n, i) => <span key={n} style={{ width: pos(edges[i + 1]) - pos(edges[i]) + "%" }} className={"b" + i} />)}
         <i style={{ left: pos(bmi) + "%" }} aria-hidden="true" />
       </div>
-      <small>BMI {bmi}. Screening only: it cannot tell muscle from fat.</small>
+      <ul className="bmi-legend">
+        {names.map((n, i) => <li key={n}><u className={"b" + i} />{n} <small>{ranges[i]}</small></li>)}
+      </ul>
+      <small>Your BMI is {bmi}. Screening only: it cannot tell muscle from fat.</small>
     </div>
   );
 }

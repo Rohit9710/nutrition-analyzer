@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Analyze from "./Analyze.jsx";
 import Today from "./Today.jsx";
 import Goal from "./Goal.jsx";
@@ -12,6 +12,8 @@ export default function App() {
   const [profile, setProfile] = useStored("na_profile", null);
   const [targets, setTargets] = useStored("na_targets", null);
   const [log, setLog] = useStored("na_log", { date: today(), items: [] });
+  const [theme, setTheme] = useStored("na_theme", typeof matchMedia === "function" && matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+  useEffect(() => { document.documentElement.dataset.theme = theme; }, [theme]);
   const items = log.date === today() ? log.items : [];
 
   const add = (entry) => setLog({ date: today(), items: [...items, { id: Date.now() + Math.random(), ...entry }] });
@@ -21,9 +23,14 @@ export default function App() {
     <div className="shell">
       <header className="top">
         <div className="brand"><span className="mark" aria-hidden="true" /><b>Nutrition Analyzer</b></div>
-        <button className="chip-goal" onClick={() => setTab("goal")}>
-          {targets ? `${fmt(targets.target_kcal)} kcal a day` : "Set your goal"}
-        </button>
+        <div className="top-actions">
+          <button className="chip-goal" onClick={() => setTab("goal")}>
+            {targets ? `${fmt(targets.target_kcal)} kcal a day` : "Set your goal"}
+          </button>
+          <button className="theme-btn" aria-label={theme === "dark" ? "Switch to light theme" : "Switch to dark theme"} onClick={() => setTheme(theme === "dark" ? "light" : "dark")}>
+            <Icon name={theme === "dark" ? "sun" : "moon"} size={20} />
+          </button>
+        </div>
       </header>
       <nav className="tabs" aria-label="Main">
         {TABS.map(([k, label, icon]) => (
@@ -38,7 +45,7 @@ export default function App() {
         {tab === "today" && <Today items={items} targets={targets} onRemove={remove} onClear={() => setLog({ date: today(), items: [] })} onGoal={() => setTab("goal")} />}
         {tab === "goal" && <Goal profile={profile} targets={targets} onSave={(p, t) => { setProfile(p); setTargets(t); setTab("analyze"); }} />}
       </main>
-      <footer>Awareness, not diagnosis. Minor project, B.Tech CSE (Data Science), MAIT.</footer>
+      <footer>Awareness, not diagnosis. Minor project, B.Tech CSE (Data Science), MAIT. Design v1.2</footer>
     </div>
   );
 }

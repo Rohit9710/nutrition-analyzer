@@ -64,4 +64,21 @@ describe("Nutrition Analyzer UI", () => {
     fireEvent.click(screen.getByText("Calculate nutrition"));
     expect(await screen.findByText(/not in our ingredient list/)).toBeTruthy();
   });
+
+  it("offers one-tap popular dishes and shows a full result without any photo", async () => {
+    render(<App />);
+    fireEvent.click(await screen.findByRole("button", { name: "Poha" }));
+    expect(await screen.findByText("Add to today")).toBeTruthy();
+    expect(screen.getByText(/Regular portion for Poha/)).toBeTruthy();
+  });
+
+  it("switches between light and dark themes and remembers the choice", async () => {
+    render(<App />);
+    fireEvent.click(screen.getByRole("button", { name: /Switch to (dark|light) theme/ }));
+    const first = document.documentElement.dataset.theme;
+    expect(["light", "dark"]).toContain(first);
+    fireEvent.click(screen.getByRole("button", { name: /Switch to (dark|light) theme/ }));
+    expect(document.documentElement.dataset.theme).not.toBe(first);
+    expect(JSON.parse(localStorage.getItem("na_theme"))).toBe(document.documentElement.dataset.theme);
+  });
 });

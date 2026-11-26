@@ -42,10 +42,12 @@ def test_label_parser():
 
 
 def test_api_flow():
-    assert c.get("/api/health").json()["status"] == "ok"
+    h = c.get("/api/health").json()
+    assert h["status"] == "ok" and h["version"] == "1.2.0"
     r = c.post("/api/dish/nutrition", json={"dish": "poha"}).json()
     v = c.post("/api/verdict", json={"profile": P, "nutrition": r["per_serving"], "meal": "breakfast"}).json()
     assert v["status"] in {"fits", "smaller_portion", "not_ideal", "add_more"} and "targets" in v
+    assert v["meal_budget_kcal"] > 0 and v["ratio"] > 0
     assert c.post("/api/recipe", json={"items": [{"ingredient": "nope", "grams": 5}]}).status_code == 422
     assert c.post("/api/goal", json={**P, "age": 5}).status_code == 422
 

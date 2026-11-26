@@ -20,9 +20,9 @@ export default function Today({ items, targets, onRemove, onClear, onGoal }) {
       <div className="today-top">
         <ProgressRing value={sum("kcal")} goal={targets?.target_kcal} />
         <div className="today-bars">
-          {bar("Protein", sum("protein_g"), targets?.protein_g, "#1F4D3A")}
-          {bar("Carbs", sum("carbs_g"), targets?.carbs_g, "#F2B01E")}
-          {bar("Fat", sum("fat_g"), targets?.fat_g, "#E0794A")}
+          {bar("Protein", sum("protein_g"), targets?.protein_g, "var(--c-protein)")}
+          {bar("Carbs", sum("carbs_g"), targets?.carbs_g, "var(--c-carbs)")}
+          {bar("Fat", sum("fat_g"), targets?.fat_g, "var(--c-fat)")}
           {targets && <p className="hint">Water goal: about {targets.water_l} litres.</p>}
         </div>
       </div>

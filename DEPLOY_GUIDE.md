@@ -91,3 +91,15 @@ Do step 3 *before* training, so you know the website works, and you will not be 
 
 ## To change something later
 On GitHub, open a file, click the pencil icon, edit, **Commit changes**. Render updates the website automatically.
+
+---
+
+## Updating the website, and checking the new design is really live
+
+After you upload new files to GitHub, Render must rebuild. Check these three things, in order:
+
+1. **GitHub has the new files in the right place.** Open your repository, then `frontend`, then `src`. You must see `Analyze.jsx`, `Today.jsx`, `Goal.jsx`, `ui.jsx` and `lib.js`. If they are missing, or you see them at the top level of the repository, they were uploaded to the wrong place. Upload the two folders `frontend` and `backend` together (drag both folders from the unzipped update), so the paths are kept.
+2. **Render built it successfully.** Render > your service > **Events**. The newest event must say the deploy is "live", and its commit message must be your latest upload. If it says "failed", open **Logs** and read the last red lines. If there is no new deploy at all, click **Manual Deploy > Clear build cache & deploy**.
+3. **Your browser is not showing an old copy.** Open the site in a private/incognito window, or press Ctrl+Shift+R.
+
+**How to be sure:** the web page footer ends with **Design v1.2**, and `https://YOUR-LINK/api/health` shows `"version": "1.2.0"`. If you see these, the new design is live.

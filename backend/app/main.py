@@ -10,7 +10,8 @@ from pydantic import BaseModel, Field
 
 from . import classifier, goals, labels, nutrition
 
-app = FastAPI(title="AI-Based Nutrition Analyzer", version="1.0.0")
+APP_VERSION = "1.2.0"
+app = FastAPI(title="AI-Based Nutrition Analyzer", version=APP_VERSION)
 app.add_middleware(CORSMiddleware, allow_origins=os.getenv("CORS_ORIGINS", "*").split(","), allow_methods=["*"], allow_headers=["*"])
 
 MAX_UPLOAD = 8 * 1024 * 1024
@@ -76,7 +77,7 @@ async def read_image(f: UploadFile) -> bytes:
 
 @app.get("/api/health")
 def health():
-    return {"status": "ok", "model": classifier.status(), "ocr_available": labels.ocr_available()}
+    return {"status": "ok", "version": APP_VERSION, "model": classifier.status(), "ocr_available": labels.ocr_available()}
 
 
 @app.get("/api/ingredients")

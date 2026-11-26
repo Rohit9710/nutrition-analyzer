@@ -114,4 +114,5 @@ def verdict(profile: dict, nutrition: dict, meal: str = "lunch", per100: dict | 
         "not_ideal": "Not ideal for your goal",
         "add_more": "Light for your goal; add more food or protein",
     }[status]
-    return {"status": status, "headline": text, "reasons": reasons, "flags": flags, "targets": t, "meal": meal, "disclaimer": DISCLAIMER}
+    return {"status": status, "headline": text, "reasons": reasons, "flags": flags, "targets": t, "meal": meal,
+            "meal_budget_kcal": round(budget), "ratio": round(ratio, 2), "disclaimer": DISCLAIMER}

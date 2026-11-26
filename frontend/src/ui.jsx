@@ -13,6 +13,8 @@ const PATHS = {
   scan: "M4 8V5h3 M17 5h3v3 M20 16v3h-3 M7 19H4v-3 M4 12h16",
   log: "M6 4h12v16H6z M9 9h6 M9 13h6 M9 17h3",
   target: "M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18z M12 7a5 5 0 1 0 0 10 5 5 0 0 0 0-10z M12 11.5v1",
+  sun: "M12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8z M12 2v2 M12 20v2 M4.9 4.9l1.4 1.4 M17.7 17.7l1.4 1.4 M2 12h2 M20 12h2 M4.9 19.1l1.4-1.4 M17.7 6.3l1.4-1.4",
+  moon: "M21 13a8 8 0 1 1-10-10 6.5 6.5 0 0 0 10 10z",
 };
 
 export function Icon({ name, size = 20 }) {
@@ -64,7 +66,7 @@ export function Alert({ tone = "info", children }) {
   );
 }
 
-const COLORS = { protein: "#1F4D3A", carbs: "#F2B01E", fat: "#E0794A" };
+const COLORS = { protein: "var(--c-protein)", carbs: "var(--c-carbs)", fat: "var(--c-fat)" };
 
 /** The plate: a calorie ring split by where the calories come from. */
 export function PlateRing({ protein, carbs, fat, kcal, size = 210, caption = "kcal" }) {
@@ -78,13 +80,13 @@ export function PlateRing({ protein, carbs, fat, kcal, size = 210, caption = "kc
   return (
     <div className="ring" style={{ width: size, height: size }}>
       <svg viewBox="0 0 200 200" width={size} height={size} role="img" aria-label={`${fmt(kcal)} calories: protein ${Math.round(protein)} g, carbs ${Math.round(carbs)} g, fat ${Math.round(fat)} g`}>
-        <circle cx="100" cy="100" r={r} fill="none" stroke="#E4EBE5" strokeWidth="22" />
+        <circle cx="100" cy="100" r={r} fill="none" className="ring-track" strokeWidth="22" />
         {parts.map(([k, v]) => {
           const len = Math.max(0, (v / total) * C - gap);
           const el = (
-            <circle key={k} cx="100" cy="100" r={r} fill="none" stroke={COLORS[k]} strokeWidth="22" strokeLinecap="butt"
+            <circle key={k} cx="100" cy="100" r={r} fill="none" strokeWidth="22" strokeLinecap="butt"
               strokeDasharray={`${ready ? len : 0} ${C}`} strokeDashoffset={-offset} transform="rotate(-90 100 100)"
-              style={{ transition: "stroke-dasharray .9s cubic-bezier(.2,.8,.2,1)" }} />
+              style={{ stroke: COLORS[k], transition: "stroke-dasharray .9s cubic-bezier(.2,.8,.2,1)" }} />
           );
           offset += (v / total) * C;
           return el;
@@ -102,9 +104,9 @@ export function ProgressRing({ value, goal, size = 150 }) {
   return (
     <div className="ring" style={{ width: size, height: size }}>
       <svg viewBox="0 0 160 160" width={size} height={size} role="img" aria-label={`${fmt(value)} of ${fmt(goal || 0)} calories today`}>
-        <circle cx="80" cy="80" r={r} fill="none" stroke="#E4EBE5" strokeWidth="16" />
-        <circle cx="80" cy="80" r={r} fill="none" stroke={over ? "#C8341F" : "#1F4D3A"} strokeWidth="16" strokeLinecap="round"
-          strokeDasharray={`${Math.min(1, pct) * C} ${C}`} transform="rotate(-90 80 80)" style={{ transition: "stroke-dasharray .6s ease" }} />
+        <circle cx="80" cy="80" r={r} fill="none" className="ring-track" strokeWidth="16" />
+        <circle cx="80" cy="80" r={r} fill="none" strokeWidth="16" strokeLinecap="round"
+          strokeDasharray={`${Math.min(1, pct) * C} ${C}`} transform="rotate(-90 80 80)" style={{ stroke: over ? "var(--chilli)" : "var(--brand)", transition: "stroke-dasharray .6s ease" }} />
       </svg>
       <div className="ring-center small"><b>{fmt(value)}</b><span>of {goal ? fmt(goal) : "?"} kcal</span></div>
     </div>

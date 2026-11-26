@@ -86,6 +86,15 @@ function DishPanel({ profile, onAdd }) {
         {busy && <p className="status">Looking at your plate...</p>}
       </PhotoPick>
 
+      {!dish && !pred && dishes.length > 0 && (
+        <div className="quick">
+          <p>No photo handy? Try a popular dish</p>
+          <div className="chips">
+            {dishes.slice(0, 6).map((d) => <button key={d.name} type="button" className="chip" onClick={() => setDish(d.name)}><span>{d.label}</span></button>)}
+          </div>
+        </div>
+      )}
+
       {pred && !pred.model_loaded && <Alert>Photo recognition is not switched on yet, so pick the dish yourself below. Everything else works as normal.</Alert>}
       {pred?.model_loaded && (
         <div className="guesses">
